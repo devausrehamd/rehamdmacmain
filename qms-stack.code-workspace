@@ -1,0 +1,130 @@
+{
+  "folders": [
+    {
+      "path": "rehamdmacflow",
+      "name": "1 \u00b7 Agent"
+    },
+    {
+      "path": "idserver",
+      "name": "2 \u00b7 ID Server"
+    },
+    {
+      "path": "discovery",
+      "name": "3 \u00b7 Discovery"
+    },
+    {
+      "path": "gui",
+      "name": "4 \u00b7 GUI"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/dist": true
+    }
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "\u25b6\ufe0f  Stack: START all",
+        "type": "shell",
+        "command": "D=\"$PWD\"; while [ \"$D\" != \"/\" ] && [ ! -f \"$D/stack.sh\" ]; do D=\"$(dirname \"$D\")\"; done; \"$D/stack.sh\" start",
+        "problemMatcher": [],
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": true,
+          "panel": "shared",
+          "clear": true
+        },
+        "detail": "Start ID Server (:3001), Discovery (:3005), Agent (:4000/:4001), and GUI (:5173) as a group. Logs in .stack/logs/."
+      },
+      {
+        "label": "\u23f9  Stack: STOP all",
+        "type": "shell",
+        "command": "D=\"$PWD\"; while [ \"$D\" != \"/\" ] && [ ! -f \"$D/stack.sh\" ]; do D=\"$(dirname \"$D\")\"; done; \"$D/stack.sh\" stop",
+        "problemMatcher": [],
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": true,
+          "panel": "shared",
+          "clear": true
+        },
+        "detail": "Stop all three services that this script started."
+      },
+      {
+        "label": "\ud83d\udd04 Stack: RESTART all",
+        "type": "shell",
+        "command": "D=\"$PWD\"; while [ \"$D\" != \"/\" ] && [ ! -f \"$D/stack.sh\" ]; do D=\"$(dirname \"$D\")\"; done; \"$D/stack.sh\" restart",
+        "problemMatcher": [],
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": true,
+          "panel": "shared",
+          "clear": true
+        },
+        "detail": "Stop then start all three services. Use after a .env change (services only read .env at startup)."
+      },
+      {
+        "label": "\ud83d\udcca Stack: STATUS",
+        "type": "shell",
+        "command": "D=\"$PWD\"; while [ \"$D\" != \"/\" ] && [ ! -f \"$D/stack.sh\" ]; do D=\"$(dirname \"$D\")\"; done; \"$D/stack.sh\" status",
+        "problemMatcher": [],
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": true,
+          "panel": "shared",
+          "clear": true
+        },
+        "detail": "Show which services are running, on which port, with which pid."
+      },
+      {
+        "label": "\ud83d\udd04 Stack: RESTART Agent only",
+        "type": "shell",
+        "command": "D=\"$PWD\"; while [ \"$D\" != \"/\" ] && [ ! -f \"$D/stack.sh\" ]; do D=\"$(dirname \"$D\")\"; done; \"$D/stack.sh\" restart agent",
+        "problemMatcher": [],
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": true,
+          "panel": "shared",
+          "clear": true
+        },
+        "detail": "Restart just the Agent (:4000) - the one you change most often."
+      },
+      {
+        "label": "\ud83d\udcdc Stack: LOGS (pick service)",
+        "type": "shell",
+        "command": "D=\"$PWD\"; while [ \"$D\" != \"/\" ] && [ ! -f \"$D/stack.sh\" ]; do D=\"$(dirname \"$D\")\"; done; \"$D/stack.sh\" logs ${input:stackService}",
+        "problemMatcher": [],
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": true,
+          "panel": "dedicated",
+          "clear": true
+        },
+        "detail": "Tail one service's log."
+      }
+    ],
+    "inputs": [
+      {
+        "id": "stackService",
+        "type": "pickString",
+        "description": "Which service's log?",
+        "options": [
+          "agent",
+          "agent-debug",
+          "idserver",
+          "discovery",
+          "gui"
+        ],
+        "default": "agent"
+      }
+    ]
+  }
+}

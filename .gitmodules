@@ -1,0 +1,12 @@
+[submodule "idserver"]
+	path = idserver
+	url = https://github.com/devausrehamd/idserver.git
+[submodule "discovery"]
+	path = discovery
+	url = https://github.com/devausrehamd/discovery.git
+[submodule "rehamdmacflow"]
+	path = rehamdmacflow
+	url = https://github.com/devausrehamd/rehamdmacflow
+[submodule "gui"]
+	path = gui
+	url = https://github.com/devausrehamd/rehamdgui.git

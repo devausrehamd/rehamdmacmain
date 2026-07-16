@@ -1,0 +1,5 @@
+# Runtime state from stack.sh (pids, logs) — not source.
+.stack/
+# macOS
+.DS_Store
+**/.DS_Store
