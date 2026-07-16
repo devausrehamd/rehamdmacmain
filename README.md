@@ -18,6 +18,45 @@ submodule: [`rehamdmacflow/docs/`](rehamdmacflow/docs/README.md) — start with
 
 ---
 
+## 📚 What this is, and why — a learning package
+
+This stack is a **testbed for putting an LLM safely near controlled QMS records**.
+The documents it drafts (DFMEA, CAPA, risk registers, gate reviews) are the
+vehicle; the point is the methods around them:
+
+- **Determinism you can test without an LLM.** Recipes, validators, scoring, and
+  custody are ordinary code with their own smoke tests — the model is isolated to
+  a couple of well-marked seams. Most of the system is verifiable offline.
+- **Provenance, not vibes.** Every field records how it came to exist (retrieved
+  / generated / computed) and a tamper-evident hash chain records the run.
+- **Judgement as measurement.** A rubric verdict is sampled *k* times and reported
+  as a pass *rate* with a confidence interval — a coin-flip result is flagged, not
+  hidden behind a single PASS/FAIL.
+- **A human stays the gate.** A draft can't approve itself; approver ≠ author is
+  enforced server-side, not just in the UI.
+
+Each service's own `readme.md` explains what that piece teaches and how to prove
+it. **Read the docs in order** starting at
+[00-philosophy.md](rehamdmacflow/docs/00-philosophy.md) — the design only makes
+sense once you have the one idea it all follows from.
+
+---
+
+## Verifying it works — smoke tests across the stack
+
+Each service ships small, readable smoke tests. They're the fastest way to learn
+the system: each one is a proof of a single behaviour. Run them from the service
+directory.
+
+| Service | Command | What it covers |
+|---------|---------|----------------|
+| **Agent** (`rehamdmacflow`) | `npm run smoke:*` (19 tests) | The core — see the full catalogue in [`rehamdmacflow/readme.md`](rehamdmacflow/readme.md#verifying-it-works--the-smoke-tests). Start with the deterministic ones (`smoke:scoring`, `smoke:section`, `smoke:executor`, `smoke:batch`) — no LLM needed. |
+| **ID Server** (`idserver`) | `npm run smoke` | Login → verifiable JWT, per-domain entitlements, fails closed. |
+| **Discovery** (`discovery`) | `npm run smoke` | Register → resolve GUID→address, heartbeat leases, expiry drops the agent. |
+| **GUI** (`gui`) | `npm run typecheck` / `npm run build` | The GUI computes nothing, so it has no smoke tests — its checks are types + build. The behaviours it shows are proven by the Agent's tests above. |
+
+---
+
 ## Quick start
 
 ```bash
