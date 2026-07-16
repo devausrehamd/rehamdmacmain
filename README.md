@@ -12,8 +12,9 @@ stop scripts.
 | 3 | [`discovery`](discovery) | Discovery (agent registry) | 3005 | `npm run dev` |
 | 4 | [`gui`](gui) | GUI (thin web client) | 5173 | `npm run dev` |
 
-Full technical documentation is in [`docs/`](docs/README.md) — start with
-[`docs/00-philosophy.md`](docs/00-philosophy.md).
+Full technical documentation lives with the code it describes, in the Agent
+submodule: [`rehamdmacflow/docs/`](rehamdmacflow/docs/README.md) — start with
+[`00-philosophy.md`](rehamdmacflow/docs/00-philosophy.md).
 
 ---
 
