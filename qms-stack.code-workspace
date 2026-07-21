@@ -1,6 +1,10 @@
 {
   "folders": [
     {
+      "path": "qms-agents",
+      "name": "0 \u00b7 Agents (monorepo)"
+    },
+    {
       "path": "rehamdmacflow",
       "name": "1 \u00b7 Agent"
     },
